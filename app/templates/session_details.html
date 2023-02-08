@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block content %}
+<style>
+
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+
+    .avatar.avatar-xl {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .avatar {
+        width: 2rem;
+        height: 2rem;
+        line-height: 2rem;
+        border-radius: 50%;
+        display: inline-block;
+        background: #ced4da no-repeat center/cover;
+        position: relative;
+        text-align: center;
+        color: #868e96;
+        font-weight: 600;
+        vertical-align: bottom;
+    }
+
+    .card {
+        background-color: #fff;
+        border: 0 solid #eee;
+        border-radius: 0;
+    }
+
+    .card {
+        margin-bottom: 30px;
+        -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05);
+        box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05);
+    }
+
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    .tile-link {
+        position: absolute;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 30;
+    }
+
+    .profile-head {
+        transform: translateY(5rem)
+    }
+
+    .cover {
+        background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+        background-size: cover;
+        background-repeat: no-repeat
+    }
+
+    body {
+        background: #654ea3;
+        background: linear-gradient(to right, #e96443, #904e95);
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    .breaking {
+        width: 500px;
+        word-wrap: break-word;
+    }
+
+    body {
+        background: rgb(99, 39, 120)
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
+
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none
+    }
+
+        .profile-button:hover {
+            background: #682773
+        }
+
+        .profile-button:focus {
+            background: #682773;
+            box-shadow: none
+        }
+
+        .profile-button:active {
+            background: #682773;
+            box-shadow: none
+        }
+
+    .back:hover {
+        color: #682773;
+        cursor: pointer
+    }
+
+    .labels {
+        font-size: 11px
+    }
+
+    .add-experience:hover {
+        background: #BA68C8;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #BA68C8
+    }
+</style>
+<div class="row content" style="width:120%">
+    <div class="col-sm-8">
+        <div class="mask text-white" style="background-color: rgba(0, 0, 0, 0.7);">
+            <div class="d-flex justify-content-center">
+                <!--            <div class="text-white">-->
+                <h1 class="mb-3">Discussion:</h1>
+            </div>
+            <br />
+            <div class="justify-content-end"
+              <h6></h6>
+                    {% for i in replies %}
+                <h6>{{i.author}} said: {{i.text}}</h6>
+                {%endfor%}
+            <!--            </div>-->
+            <!--        </div>-->
+             </div>
+            <br />
+            <br />
+            {% if user in enroll_list %}
+            <form action="{% url 'discuss' studysessionmodel.pk%}" method="POST">
+                {% csrf_token%}
+                <div class="form-group">
+                    <h3>Post Your Response Here:</h3>
+                    <input type="hidden" name="post_id" value="{{post.id}}">
+                    <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
+                </div>
+                <button type="submit" , name="reply_studysession_id" ,value="{{studysessionmodel.id}}" ,class="btn btn-primary btn-sm"> Post </button>
+            </form>
+
+            <form action="{% url 'unEnroll' studysessionmodel.pk%}" method="POST">
+                {% csrf_token%}
+                <button type="submit" , name="unEnroll_id" ,value="{{studysessionmodel.id}}" ,class="btn btn-primary btn-sm"> UnEnroll </button>
+            </form>
+            {%endif%}
+        </div>
+    </div>
+    <div class="col-sm-2" style="margin-left:50px">
+        Enrolled:
+        {% for i in enroll_list %}
+        <li>{{i}}</li>
+        {%endfor%}
+    </div>
+</div>
+
+    <br />
+
+
+
+    {% endblock %}

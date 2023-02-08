@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+<!--https://mdbootstrap.com/docs/standard/extended/profiles/-->
+<!-- where we found a good base to use for the profile-->
+<style>
+
+body{
+    margin-top:20px;
+    background:#eee;
+}
+.header-dark {
+        background: url(../static/index/images/jungle.jpeg);
+        background-size: cover;
+        padding-bottom: 80px;
+    }
+.avatar.avatar-xl {
+    width: 5rem;
+    height: 5rem;
+}
+.avatar {
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 50%;
+    display: inline-block;
+    background: #ced4da no-repeat center/cover;
+    position: relative;
+    text-align: center;
+    color: #868e96;
+    font-weight: 600;
+    vertical-align: bottom;
+}
+.card {
+    background-color: #fff;
+    border: 0 solid #eee;
+    border-radius: 0;
+}
+.card {
+    margin-bottom: 30px;
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05);
+}
+.card-body {
+    padding: 1.25rem;
+}
+.tile-link {
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 30;
+}
+.profile-head {
+    transform: translateY(5rem)
+}
+
+.cover {
+    background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+    background-size: cover;
+    background-repeat: no-repeat
+}
+
+body {
+    background: #654ea3;
+    background: linear-gradient(to right, #e96443, #904e95);
+    min-height: 100vh;
+    overflow-x:hidden;
+}
+.breaking{
+    width:500px;
+    word-wrap: break-word;
+}
+body {
+    background: rgb(99, 39, 120)
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
+</style>
+{% block content %}
+    {% if user.profile.pk == profile.pk %}
+   <div class="profile mr-3">
+    <center>
+        <a href="{% url 'edit_profile_page' user.profile.pk %}" class="btn bg-dark btn-sm ">Edit profile</a>
+
+    </center>
+    </div>
+    {% endif %}
+
+    <center>
+        <div class="row py-5">
+            <div class="col-sm-8">
+                <!-- Profile widget -->
+                <div class="bg-white shadow rounded overflow-hidden">
+                    <br></br>
+                    <img src="https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg" alt="" width="150"
+                         height="150">
+
+                    <div class="px-4 pt-0 pb-4 cover">
+                        <div class="">
+
+                            <h4 class="mt-0 mb-0">{{profile.user.username}}</h4>
+
+
+
+
+                        </div>
+                    </div>
+                    <p class="">
+                        <i class="mt-0 mb-0"></i>{{profile.Age}}
+                    </p>
+
+                    <p class="">
+                        <i class="mt-0 mb-0"></i>{{profile.Major}}
+                    </p>
+
+
+                    <div class="py-4 px-4">
+                        <div class="">
+                            <h5 class="mb-0">Bio</h5>
+                        </div>
+
+                        <div class="p-4 rounded shadow-sm bg-light">
+                            <p>{{profile.Bio}}</p>
+
+
+
+                        </div>
+                    </div>
+                    <div class="py-4 px-4">
+                        <div class="">
+                            <h5 class="mb-0">Enrolled Courses</h5>
+                        </div>
+
+                        <div class="p-4 rounded shadow-sm bg-light">
+                            {% if profile.Enrolled_Courses is not null %}
+                            {% for c in profile.Enrolled_Courses.all %}
+                            <br>{{ c.subject_field }} {{ c.catalog_number_field }}
+                            {% endfor %}
+                            {% endif %}
+
+                            <br></br>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-2 sidenav">
+                <div class="px-4">
+                    
+                    <div class="">
+                        <div class="px-1 py-4 rounded shadow-sm bg-light" style="margin-left:150px; width : 150px; height:max-content">
+                            <div class="">
+                                <h5 class="mb-0">Who I Follow</h5>
+                            </div>
+                            {% if profile.Following is not null %}
+                            {% for c in profile.Following.all %}
+                        <!--</div>-->
+                            <div class="">
+                                <div class="card-body">
+                                    <div class="media-body overflow-hidden">
+                                        <a href="{% url 'user_profile' pk=c.id %}" class="tile-link">
+                                            <img src="https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg" alt="" width="50"
+                                                 height="50">
+                                        </a>
+                                        <h5 class="card-text mb-0">{{ c }}</h5>
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+                            {% endif %}
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+</center>
+</div>
+        <body style="color: black;">
+    <link rel="stylesheet" href="{% static 'index/style.css' %}">
+    <hr>
+</body>
+
+{% endblock %}
+
+
+

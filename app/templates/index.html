@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block content %}
+<div class="p-5 text-center bg-image" >
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+                <h1 class="mb-3">Welcome to StudyBuddy, {{ user.username }}</h1>
+                <h5 class="mb-4">The #1 Resource to Find New Study Sessions</h5>
+                {% if user.is_authenticated %}
+
+                {% endif %}
+                {% if user.is_authenticated %}
+
+                {% else %}
+                <a class="btn btn-outline-light btn-lg m-2"
+                   href="{% provider_login_url 'google' %}"
+                   role="button"
+                   target="_blank">Login</a>
+                {% endif %}
+                <br />
+                {% if user.is_authenticated %}
+                <h1>My Enrolled Sessions</h1>
+                {% if enroll %}
+                <ul>
+                    {% for session in enroll %}
+                    <br />
+                    <a href="{% url 'post_detail' session.pk %}">{{ session.title }}</a> - {{session.author}}
+                    <br />
+                    {{session.start_time}} - {{session.duration}}
+
+
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>You haven't enrolled any sessions.</p>
+                {% endif %}
+                {%endif%}
+                <!--        </div>-->
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}

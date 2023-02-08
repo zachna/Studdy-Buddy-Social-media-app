@@ -1,0 +1,312 @@
+{% load static %}
+{% load socialaccount %}
+<!--https://startbootstrap.com/themes-->
+<!--Where we found some theming for different aspects of the website (changed to fit our needs)-->
+<style>
+
+    .header-dark {
+        background: url(../static/index/images/jungle.jpeg);
+        background-size: cover;
+        padding-bottom: 80px;
+    }
+
+    @media (min-width:768px) {
+        .header-dark {
+            padding-bottom: 120px;
+        }
+    }
+
+    .header-dark .navbar {
+        background: transparent;
+        padding-top: 0;
+        padding-bottom: 0;
+        color: #fff;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+    }
+
+    @media (min-width:768px) {
+        .header-dark .navbar {
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+        }
+    }
+
+    .header-dark .navbar .navbar-brand {
+        font-weight: bold;
+        color: inherit;
+    }
+
+        .header-dark .navbar .navbar-brand:hover {
+            color: #f0f0f0;
+        }
+
+    .header-dark .navbar .navbar-collapse span {
+        margin-top: 5px;
+    }
+
+        .header-dark .navbar .navbar-collapse span .login {
+            color: #d9d9d9;
+            margin-right: .5rem;
+            text-decoration: none;
+        }
+
+            .header-dark .navbar .navbar-collapse span .login:hover {
+                color: #fff;
+            }
+
+    .header-dark .navbar .navbar-toggler {
+        border-color: #747474;
+    }
+
+        .header-dark .navbar .navbar-toggler:hover, .header-dark .navbar-toggler:focus {
+            background: none;
+        }
+
+    .header-dark .navbar .navbar-toggler {
+        color: #eee;
+    }
+
+    .header-dark .navbar .navbar-collapse, .header-dark .navbar .form-inline {
+        border-color: #636363;
+    }
+
+    @media (min-width: 992px) {
+        .header-dark .navbar.navbar .navbar-nav .nav-link {
+            padding-left: 1.2rem;
+            padding-right: 1.2rem;
+        }
+    }
+
+    .header-dark .navbar.navbar-dark .navbar-nav .nav-link {
+        color: #d9d9d9;
+    }
+
+        .header-dark .navbar.navbar-dark .navbar-nav .nav-link:focus, .header-dark .navbar.navbar-dark .navbar-nav .nav-link:hover {
+            color: #fcfeff !important;
+            background-color: transparent;
+        }
+
+    .header-dark .navbar .navbar-nav > li > .dropdown-menu {
+        margin-top: -5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,.1);
+        background-color: #fff;
+        border-radius: 2px;
+    }
+
+    .header-dark .navbar .dropdown-menu .dropdown-item:focus, .header-dark .navbar .dropdown-menu .dropdown-item {
+        line-height: 2;
+        font-size: 14px;
+        color: #37434d;
+    }
+
+        .header-dark .navbar .dropdown-menu .dropdown-item:focus, .header-dark .navbar .dropdown-menu .drodown-item:hover {
+            background: #ebeff1;
+        }
+
+    .header-dark .navbar .action-button, .header-dark .navbar .action-button:active {
+        background: #208f8f;
+        border-radius: 20px;
+        font-size: inherit;
+        color: #fff;
+        box-shadow: none;
+        border: none;
+        text-shadow: none;
+        padding: .5rem .8rem;
+        transition: background-color 0.25s;
+    }
+
+        .header-dark .navbar .action-button:hover {
+            background: #269d9d;
+        }
+
+    .header-dark .navbar .form-inline label {
+        color: #ccc;
+    }
+
+    .header-dark .navbar .form-inline .search-field {
+        display: inline-block;
+        width: 80%;
+        background: none;
+        border: none;
+        border-bottom: 1px solid transparent;
+        border-radius: 0;
+        color: #ccc;
+        box-shadow: none;
+        color: inherit;
+        transition: border-bottom-color 0.3s;
+    }
+
+        .header-dark .navbar .form-inline .search-field:focus {
+            border-bottom: 1px solid #ccc;
+        }
+
+    .header-dark .hero {
+        margin-top: 60px;
+    }
+
+    @media (min-width:768px) {
+        .header-dark .hero {
+            margin-top: 20px;
+        }
+    }
+
+    .header-dark .hero h1 {
+        color: #fff;
+        font-family: 'Bitter', serif;
+        font-size: 40px;
+        margin-top: 20px;
+        margin-bottom: 80px;
+    }
+
+    @media (min-width:768px) {
+        .header-dark .hero h1 {
+            margin-bottom: 50px;
+            line-height: 1.5;
+        }
+    }
+
+    .header-dark .hero .embed-responsive iframe {
+        background-color: #666;
+    }
+</style>
+
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Buddy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+
+<div>
+    <div class="header-dark">
+        <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+            <div class="container">
+                <a class="navbar-brand" href="/">Study Buddy</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse"
+                     id="navcol-1">
+                    <ul class="nav navbar-nav">
+                        {% if user.is_authenticated %}
+
+
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'user_profile' user.profile.id %}">User Profile</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/user_list">Find a Buddy</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/class">Course List</a></li>
+                        <li class="dropdown"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Study Session Options </a>
+                                <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="{% url 'post' %}">Post a Session</a><a class="dropdown-item" role="presentation" href="{% url 'list' %}">Sessions for Enrolled Classes</a><a class="dropdown-item" role="presentation" href="{% url 'Friend' %}">Sessions Followers Created</a><a class="dropdown-item" role="presentation" href="{% url 'my_post_session' %}">Study Sessions I created</a></div>
+                            </li>
+
+                    </ul>
+                    {% else %}
+
+                    {% endif %}
+
+                    <form class="form-inline mr-auto" target="_self">
+                    </form>
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-light action-button" role="button" href="{% url 'account_logout' %}">
+                        Log Out
+                    </a>
+                    {% else %}
+
+
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </nav>
+        <div class="container hero">
+            <br class="row">
+            <div class="col-md-8 offset-md-2">
+
+            </div>
+        {% if user.is_authenticated %}
+            {% block content %}
+
+            {% endblock %}
+    {% else %}
+    <div class="p-5 text-center bg-image" >
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+                <h1 class="mb-3">Welcome to StudyBuddy, {{ user.username }}</h1>
+                <h5 class="mb-4">The #1 Resource to Find New Study Sessions</h5>
+                {% if user.is_authenticated %}
+
+                {% endif %}
+                {% if user.is_authenticated %}
+
+                {% else %}
+                <a class="btn btn-outline-light btn-lg m-2"
+                   href="{% provider_login_url 'google' %}"
+                   role="button"
+                   target="_blank">Login</a>
+                {% endif %}
+                <br />
+                {% if user.is_authenticated %}
+                <h1>My Enrolled Sessions</h1>
+                {% if enroll %}
+                <ul>
+                    {% for session in enroll %}
+                    <br />
+                    <a href="{% url 'post_detail' session.pk %}">{{ session.title }}</a> - {{session.author}}
+                    <br />
+                    {{session.start_time}} - {{session.duration}}
+
+
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>You haven't enrolled any sessions.</p>
+                {% endif %}
+                {%endif%}
+                <!--        </div>-->
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+<html>
+<nav class="navbar fixed-bottom navbar-dark bg-dark">
+    <body>
+        <footer>
+            <div class="text-center">
+                <!--  <p>Study Buddy: studybuddy@gmail.com<br>-->
+                <!--  <a>Website in Progress</a>-->
+                <div class="card-footer text-muted">Copyright 2022 StudyBuddy, LLC. All Rights Reserved</div>
+            </div>
+        </footer>
+    </body>
+</nav>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+<body style="color: white;">
+    <link rel="stylesheet" href="{% static 'index/style.css' %}">
+    <hr>
+</body>
+
+</html>

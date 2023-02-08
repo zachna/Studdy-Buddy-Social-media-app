@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+<!--<style>
+        "overflow": (
+      property: overflow,
+      values: auto hidden visible scroll,
+    ),
+
+</style>-->
+{% block content %}
+<br />
+<body>
+
+    <div class="container">
+        <h2>Course List</h2>
+
+        <form action="{% url 'search' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="name">
+            <input type="submit" name="submit" value="Search">
+        </form>
+        <!--  <br>-->
+        <!--  <ul class="list-group" id="myList">-->
+        <!--    <li class="list-group-item">{{i.subject}} {{i.catalog_number}}</li>-->
+        <!--    <li class="list-group-item">{{i.description}}</li>-->
+        <!--    <li class="list-group-item">{{i.course_section}}</li>-->
+        <!--    <li class="list-group-item">{{i.instructor_name}}</li>-->
+        <!--  </ul>-->
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myList li").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
+
+
+<body>
+
+    <div class="container">
+        <!--  <h2>Course List</h2>-->
+        <table class="table table-striped, text-white">
+            <thead>
+                <tr>
+                    <th>Course Number</th>
+                    <th>Description</th>
+                    <th>Course Section</th>
+                    <th>Instructor</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                {% for i in response %}
+                
+                <tr>
+                    <td>{{i.subject}} {{i.catalog_number}}</td>
+                    <td>{{i.description}}</td>
+                    <td>{{i.course_section}}</td>
+                    <td>{{i.instructor.name}}</td>
+                    <td>
+
+                        <form action="{% url 'add_class' %}" method="POST">
+                            {% csrf_token %}
+                            <!-- Save course info to submit in POST request for Add button: -->
+                            <input type="hidden" name="subject" value="{{i.subject}}">
+                            <input type="hidden" name="catalog_number" value="{{i.catalog_number}}">
+                            <input type="hidden" name="course_number" value="{{i.course_number}}">
+                            <input type="hidden" name="description" value="{{i.description}}">
+                            <input type="hidden" name="instructor" value="{{i.instructor.name}}">
+                            <button type="submit" name="class_id" value=i class="btn btn-light action-button">Add</button>
+
+
+                        </form>
+                        </div>
+                    <td>
+                </tr>
+                
+                {%endfor%}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+
+{% endblock %}

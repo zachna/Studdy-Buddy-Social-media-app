@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block content %}
+<br>
+
+<body>
+
+    <div class="container mt-3 text-white">
+        <h2>My Study Session</h2>
+        <p>Post your study session</p>
+
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{form.media}}
+            {{form.as_p}}
+            <button type="submit" name="post" class="btn btn-primary">Post</button>
+
+        </form>
+    </div>
+
+</body>
+
+{% endblock %}
